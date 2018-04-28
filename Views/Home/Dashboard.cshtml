@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+@model dojoactivity.Models.User
+<nav class="navbar navbar-inverse navbar-fixed-top bg-dark">
+    <div class="row justify-content-start">
+        <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand text-white">Dojo Activity Center</a>
+    </div>
+    <div class="row ml-3">
+        <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand text-white">Welcome @ViewBag.Username.FirstName!</a>
+    </div>
+    <div class="row ml-3 pull-right">
+        <a asp-area="" asp-controller="Home" asp-action="logout" class="navbar-brand text-white">Log off</a>
+    </div>
+</nav>
+    <div class="row justify-content-start">
+        <div class="col-sm ml-5 mt-5">
+            <div class="row mt-5">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Activity</th>
+                            <th scope="col">Date and time</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Event Coordinator</th>
+                            <th scope="col">Number Participants</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @{ var DojoAct =  @ViewBag.display;
+                        foreach(var dojo in DojoAct)
+                        {   var flag = false;
+                            
+                            foreach(var participant in dojo.participants)
+                            {
+                                if (participant.User.UserId == @ViewBag.Id && participant.User != null)
+                                {
+                                    flag = true;
+                                }
+                            }   
+                            <tr>
+                                <td><a href="activity/@dojo.PlannerId">@dojo.Title</a></td>
+                                <td>@dojo.Date.ToString("MM/dd") @dojo.Time.ToString("hh':'mm")</td>
+                                <td>@dojo.Duration @dojo.Hours</td>
+                                <td>@dojo.User.FirstName</td>
+                                <td>@dojo.participants.Count</td>
+                                
+                                @if(@dojo.User.UserId == @ViewBag.Id)
+                                {
+                                    <td>
+                                        <form action="delete" method="post">
+                                            <button class="btn-danger">Delete</button>
+                                            <input type="hidden" name="planid" value=@dojo.PlannerId>
+                                        </form>
+                                    </td>
+                                }
+                                else 
+                                {
+                                    if(flag)
+                                    {
+                                        <td>
+                                            <form action="leave" method="POST">
+                                                <input type="hidden" name="planid" value=@dojo.PlannerId>
+                                                <button class="btn-warning">Leave</button>
+                                            </form>
+                                        </td>
+                                    }
+                                    else 
+                                    {
+                                        <td>
+                                            <form action="join" method="POST">
+                                                <input type="hidden" name="planid" value=@dojo.PlannerId>
+                                                <button class="btn-success">Join</button>
+                                            </form>
+                                        </td>
+                                    }
+                                } 
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm offset-md-4">
+                    <a class="btn btn-primary btn-sm float-right" href="New" role="button">Add new Activity</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

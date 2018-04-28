@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model dojoactivity.Models.RegisterViewModel
+
+<div class="row justify-content-center">
+    <h1>Welcome to the Dojo Activity Center</h1>
+</div>
+<div class="row justify-content-start mt-5">
+    <div class="col-sm-5">
+       <form action="Login" method="post">
+         <h3>Login</h3>
+        <div class="form-group mt-5">
+            <label for="Email">Email</label>
+            <input type="text" class="form-control" for="Email" name="email">
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input type="password" class="form-control" for="Password" name="password">
+        </div>
+        <p class="text-danger">@TempData["logerror"]</p>
+        <button type="submit" class="btn btn-success pull-right">Sign In</button>
+    </form>
+  </div>
+</div>
+<div class="row">
+    <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+        <h3>Registration</h3>
+        <span class="text-danger">@TempData["error"]</span>
+        <form action="Register" method="post">
+        <div class="form-group mt-5">
+            <label asp-for="FirstName"></label>
+            <input type="text" class="form-control" asp-for="FirstName">
+            <span  class="text-danger" asp-validation-for="FirstName"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName"></label>
+            <input type="text" class="form-control" asp-for="LastName">
+            <span class="text-danger" asp-validation-for="LastName"></span>
+        </div>
+        <div class="form-group mt-5">
+                <label asp-for="Email"></label>
+                <input type="email" class="form-control" asp-for="Email">
+                <span class="text-danger" asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input type="password" class="form-control" asp-for="Password">
+            <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ConfirmPassword"></label>
+            <input type="password" class="form-control" asp-for="ConfirmPassword">
+            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+        </div>
+        <button type="submit" class="btn btn-success pull-right">Create</button>
+        </form>
+    </div>
+</div>
+</div>

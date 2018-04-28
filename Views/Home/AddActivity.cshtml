@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Create Activity";
+}
+@model dojoactivity.Models.AddActivityViewModel
+<nav class="navbar navbar-inverse navbar-fixed-top bg-dark">
+    <div class="row justify-content-start">
+        <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand text-white">Dojo Activity Center</a>
+    </div>
+    <div class="row ml-3">
+        <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand text-white">Home</a>
+    </div>
+    <div class="row ml-3 pull-right">
+        <a asp-area="" asp-controller="Home" asp-action="logout" class="navbar-brand text-white">Log off</a>
+    </div>
+</nav>
+<div class="row justify-content-start mt-5">
+    <h1>Create an Activity!</h1>
+</div>
+<form action="activities" method="post">
+    <div class="row justify-content-start mt-5">
+        <div class="col-6">
+            <label asp-for="Title"></label> 
+            <input type="text" class="form-control" asp-for="Title">
+            <span  class="text-danger" asp-validation-for="Title"></span>
+        </div>
+        <div class="col-6">
+            <label asp-for="Time">Time</label>
+            <input type="time" class="form-control" asp-for="Time">
+            <span  class="text-danger" asp-validation-for="Time"></span>
+        </div>
+    </div>
+    <div class="row justify-content-start mt-5">
+         <div class="col-6">
+            <label asp-for="Date">Date</label>
+            <input type="date" class="form-control" asp-for="Date">
+            <span  class="text-danger" asp-validation-for="Date">@TempData["error"]</span>
+        </div>
+        <div class="col-6">
+            <label asp-for="Duration">Duration</label>
+            <input type="text" class="form-control" asp-for="Duration">
+            <span  class="text-danger" asp-validation-for="Duration"></span>
+        </div>
+    </div>
+    <div class="row justify-content-end mt-3">
+        <div class="col-6">
+            <label asp-for="Hours"></label>
+            <select class="form-control" asp-for="Hours">
+            <span  class="text-danger" asp-validation-for="Hours"></span>
+            <option>Hours</option>
+            <option>Days</option>
+            <option>Minutes</option>
+            </select>
+        </div>
+    </div>
+    <div class="row justify-content-start mt-5">
+        <label asp-for="Description"></label>
+        <textarea class="form-control vresize" rows="5" asp-for="Description">
+        <span  class="text-danger" asp-validation-for="Description"></span>
+        </textarea>
+    </div>
+    <div class="row">
+        <div class="col-sm offset-md-4">
+            <button type="submit" class="btn btn-success float-right mt-5">Create Activity</button>
+        </div>
+    </div>
+</form>

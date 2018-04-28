@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Plan Details";
+}
+<nav class="navbar navbar-inverse navbar-fixed-top bg-dark">
+    <div class="row justify-content-start">
+        <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand text-white">Dojo Activity Center</a>
+    </div>
+    <div class="row ml-3">
+        <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand text-white">Home</a>
+    </div>
+    <div class="row ml-3 pull-right">
+        <a asp-area="" asp-controller="Home" asp-action="logout" class="navbar-brand text-white">Log off</a>
+    </div>
+</nav>
+
+@{
+    @foreach (var item in @ViewBag.Result)
+    {
+        <div class="row justify-content-start mt-5 offset-md-5">
+            <div class="col-6">
+                <h1>@item.Title</h1>
+            </div>
+        </div>
+        <div class="row justify-content-start mt-2 ml-5">
+            <div class="col-6">
+                <h3>Event Coordinator: @item.User.FirstName</h3>
+            </div>
+        </div>
+        <div class="row justify-content-start mt-2 ml-5">
+            <div class="col-6">
+                <h3>Description</h3>
+                <p>@item.Description</p>
+            </div>
+        </div>
+        <div class="row justify-content-start mt-2 ml-5">
+            <div class="col-6">
+                <h3>Participants</h3>
+                @foreach (var participant in @item.participants)
+                {
+                    <p>@participant.User.FirstName</p>
+                }  
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm offset-md-4">
+                  <form action="add" method="post">
+                    <button type="submit" class="btn btn-success btn-lg float-right mt-5">Join</button>
+                    <input type="hidden" name="planid" value=@item.PlannerId>
+                    <input type="hidden" name="userid" value=@item.User.UserId>
+                  </form>
+            </div>
+        </div>
+    }
+}
